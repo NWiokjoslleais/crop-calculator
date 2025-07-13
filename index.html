@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Valor do Crop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+    }
+    #resultado {
+      margin-top: 30px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculadora de Valor Final do Crop</h1><label for="vb">Valor Base do Tipo (vb):</label> <input type="number" id="vb" step="any">
+
+<label for="pb">Peso Base do Tipo (pb):</label> <input type="number" id="pb" step="any">
+
+<label for="p">Peso da Fruta (p):</label> <input type="number" id="p" step="any">
+
+<label for="M">Mutação Primária (M):</label> <input type="number" id="M" step="any">
+
+<label for="m">Soma das Mutações Secundárias (∑m):</label> <input type="number" id="m" step="any">
+
+<label for="nm">Número de Mutações (nm):</label> <input type="number" id="nm">
+
+<button onclick="calcularValor()">Calcular Valor Final (V)</button>
+
+  <div id="resultado"></div>  <script>
+    function calcularValor() {
+      const vb = parseFloat(document.getElementById('vb').value);
+      const pb = parseFloat(document.getElementById('pb').value);
+      const p = parseFloat(document.getElementById('p').value);
+      const M = parseFloat(document.getElementById('M').value);
+      const m = parseFloat(document.getElementById('m').value);
+      const nm = parseInt(document.getElementById('nm').value);
+
+      if (isNaN(vb) || isNaN(pb) || isNaN(p) || isNaN(M) || isNaN(m) || isNaN(nm)) {
+        document.getElementById('resultado').innerText = 'Preencha todos os campos corretamente.';
+        return;
+      }
+
+      const fatorPeso = (p / pb) ** 2;
+      const fatorMutacao = M * (1 + m - nm);
+      const V = vb * fatorPeso * fatorMutacao;
+
+      document.getElementById('resultado').innerText = `Valor Final (V): ${V.toFixed(2)}`;
+    }
+  </script></body>
+</html>
